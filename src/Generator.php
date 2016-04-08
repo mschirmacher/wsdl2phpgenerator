@@ -158,14 +158,6 @@ class Generator implements GeneratorInterface
                     $nullable = $typeNode->isElementNillable($name) || $typeNode->getElementMinOccurs($name) === 0;
                     $type->addMember($typeName, $name, $nullable);
                 }
-            } elseif ($enumValues = $typeNode->getEnumerations()) {
-                $type = new Enum($this->config, $typeNode->getName(), $typeNode->getRestriction());
-                array_walk($enumValues, function ($value) use ($type) {
-                      $type->addValue($value);
-                });
-            } elseif ($pattern = $typeNode->getPattern()) {
-                $type = new Pattern($this->config, $typeNode->getName(), $typeNode->getRestriction());
-                $type->setValue($pattern);
             }
 
             if ($type != null) {
